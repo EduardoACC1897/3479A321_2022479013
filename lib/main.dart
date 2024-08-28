@@ -68,6 +68,18 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
+
+  void _resetCounter() {
+    setState(() {
+      _counter = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -115,10 +127,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      persistentFooterButtons: <Widget>[
+        ElevatedButton(
+          onPressed: _decrementCounter,
+          child: const Icon(Icons.remove),
+        ),
+        ElevatedButton(
+          onPressed: _incrementCounter,
+          child: const Icon(Icons.add_circle),
+        ),
+      ],
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add_circle),
+        onPressed: _resetCounter,
+        tooltip: 'Reiniciar',
+        child: const Icon(Icons.refresh),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

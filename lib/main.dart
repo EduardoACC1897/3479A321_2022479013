@@ -80,6 +80,20 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Widget> _buildFooterButtons() {
+    return <Widget>[
+      ElevatedButton(
+        onPressed: _decrementCounter,
+        child: const Icon(Icons.remove),
+      ),
+      ElevatedButton(
+        onPressed: _incrementCounter,
+        child: const Icon(Icons.add_circle),
+      ),
+    ];
+  }
+
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -127,16 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      persistentFooterButtons: <Widget>[
-        ElevatedButton(
-          onPressed: _decrementCounter,
-          child: const Icon(Icons.remove),
-        ),
-        ElevatedButton(
-          onPressed: _incrementCounter,
-          child: const Icon(Icons.add_circle),
-        ),
-      ],
+      persistentFooterButtons: _buildFooterButtons(),
       floatingActionButton: FloatingActionButton(
         onPressed: _resetCounter,
         tooltip: 'Reiniciar',

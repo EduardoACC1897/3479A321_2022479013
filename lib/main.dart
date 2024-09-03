@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,8 +31,9 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
         useMaterial3: true,
+        fontFamily: 'NerkoOne',
       ),
-      home: const MyHomePage(title: 'Laboratorio 1 - Página de inicio'),
+      home: const MyHomePage(title: 'Laboratorio 2 - Página de inicio'),
     );
   }
 }
@@ -56,6 +58,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final String iconPath = 'assets/icons/gamepad_icon.svg';
 
   void _incrementCounter() {
     setState(() {
@@ -131,6 +134,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SvgPicture.asset(
+              iconPath,
+              width: 100,
+              height: 100,
+            ),
+            const SizedBox(height: 20),
             const Text(
               'Has presionado el botón tantas veces:',
             ),

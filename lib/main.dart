@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:logger/logger.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +12,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    final Logger logger = Logger();
+    logger.d("Logger is working!");
+
     return MaterialApp(
       title: 'Laboratorio 2',
       theme: ThemeData(
@@ -60,6 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   final String iconPath = 'assets/icons/gamepad_icon.svg';
 
+  final Logger logger = Logger();
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -68,18 +75,21 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      logger.i("Contador incrementa a $_counter");
     });
   }
 
   void _decrementCounter() {
     setState(() {
       _counter--;
+      logger.i("Contador disminuye a $_counter");
     });
   }
 
   void _resetCounter() {
     setState(() {
       _counter = 0;
+      logger.i("Contador se reinicia a $_counter");
     });
   }
 

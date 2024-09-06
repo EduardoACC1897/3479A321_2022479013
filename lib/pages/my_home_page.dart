@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             icon: const Icon(Icons.info_outline),
             onPressed: () {
-              // Navegar a la página "About"
+              // Navegar a la página Acerca
               Navigator.pushNamed(context, '/about');
             },
           ),
@@ -122,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    // Navegar a la pantalla "Detalle"
+                    // Navegar a la pantalla Detalle
                     Navigator.pushNamed(context, '/detail');
                   },
                   child: const Text('Detalle'),
@@ -145,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.refresh),
       );
     } else {
-       // Ocultar el botón flotante si el contador es 5 o 10
+       // Ocultar el botón flotante si el contador no es 5 o 10
       return null;
     }
   }

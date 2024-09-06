@@ -25,7 +25,7 @@ class DetailPage extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Navegar a la pantalla About
+                // Navegar a la pantalla Acerca
                 Navigator.pushNamed(context, '/about');
               },
               child: const Text('Acerca'),

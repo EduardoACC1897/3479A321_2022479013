@@ -137,8 +137,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget? _showFloatingButton() {
-    // Mostrar el botón flotante si el contador no es 5 o 10
-    if (_counter != 5 && _counter != 10) {
+    // Mostrar el botón flotante si el contador es 5 o 10
+    if (_counter == 5 || _counter == 10) {
       return FloatingActionButton(
         onPressed: _resetCounter,
         tooltip: 'Reiniciar',

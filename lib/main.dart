@@ -17,13 +17,13 @@ class MyApp extends StatelessWidget {
     logger.d("Logger is working!");
 
     return MaterialApp(
-      title: 'Laboratorio 2',
+      title: 'Laboratorio 3',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
         useMaterial3: true,
         fontFamily: 'NerkoOne',
       ),
-      home: const MyHomePage(title: 'Laboratorio 2 - Página de inicio'),
+      home: const MyHomePage(title: 'Laboratorio 3 - Página de inicio'),
       routes: {
         '/detail': (context) => const DetailPage(),
         '/about': (context) => const AboutPage(),

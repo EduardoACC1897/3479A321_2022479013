@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             icon: const Icon(Icons.info_outline),
             onPressed: () {
-              // Navegar a la página Acerca
+              // Navegar a la pantalla Acerca
               Navigator.pushNamed(context, '/about');
             },
           ),

@@ -15,7 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   final Logger logger = Logger();
 
-  // Paths for the icons
+  // Iconos
   final String winIconPath = 'assets/icons/win_icon.svg';
   final String loseIconPath = 'assets/icons/lose_icon.svg';
   final String continueIconPath = 'assets/icons/continue_icon.svg';

@@ -67,6 +67,15 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            onPressed: () {
+              // Navegar a la página "About"
+              Navigator.pushNamed(context, '/about');
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Card(
@@ -110,6 +119,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    // Navegar a la pantalla "Detalle"
+                    Navigator.pushNamed(context, '/detail');
+                  },
+                  child: const Text('Detalle'),
+                ),
               ],
             ),
           ),
@@ -120,14 +137,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget? _showFloatingButton() {
-    if (_counter == 5 || _counter == 10) {
+    // Mostrar el botón flotante si el contador no es 5 o 10
+    if (_counter != 5 && _counter != 10) {
       return FloatingActionButton(
         onPressed: _resetCounter,
         tooltip: 'Reiniciar',
         child: const Icon(Icons.refresh),
       );
     } else {
-      // Ocultar el botón si el contador es 5 o 10
+       // Ocultar el botón flotante si el contador es 5 o 10
       return null;
     }
   }

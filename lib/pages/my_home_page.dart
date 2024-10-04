@@ -8,7 +8,12 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  // ignore: no_logic_in_create_state
+  State<MyHomePage> createState() {
+    // ignore: avoid_print
+    print('create State');
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -19,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final String winIconPath = 'assets/icons/win_icon.svg';
   final String loseIconPath = 'assets/icons/lose_icon.svg';
   final String continueIconPath = 'assets/icons/continue_icon.svg';
-
+  
   String _getMessage() {
     if (_counter == 10) {
       return "Victoria!";
@@ -145,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.refresh),
       );
     } else {
-       // Ocultar el botón flotante si el contador no es 5 o 10
+      // Ocultar el botón flotante si el contador no es 5 o 10
       return null;
     }
   }

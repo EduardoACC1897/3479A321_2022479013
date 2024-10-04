@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
+//import 'package:logger/logger.dart';
 import 'pages/my_home_page.dart';
 import 'pages/detail_page.dart';
 import 'pages/about_page.dart';
@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Logger logger = Logger();
-    logger.d("Logger is working!");
+    //final Logger logger = Logger();
+    //logger.d("Logger is working!");
 
     return MaterialApp(
       title: 'Laboratorio 3',
@@ -31,4 +31,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

@@ -25,6 +25,32 @@ class _MyHomePageState extends State<MyHomePage> {
   final String loseIconPath = 'assets/icons/lose_icon.svg';
   final String continueIconPath = 'assets/icons/continue_icon.svg';
   
+  _MyHomePageState() {
+    // ignore: avoid_print
+    print('constructor, mounted: $mounted');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // ignore: avoid_print
+    print('initState, mounted: $mounted');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // ignore: avoid_print
+    print('didChangeDependencies, mounted: $mounted');
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    // ignore: avoid_print
+    print('setState');
+    super.setState(fn);
+  }
+
   String _getMessage() {
     if (_counter == 10) {
       return "Victoria!";
@@ -48,26 +74,29 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     setState(() {
       _counter++;
-      logger.i("Contador incrementa a $_counter");
+      //logger.i("Contador incrementa a $_counter");
     });
   }
 
   void _decrementCounter() {
     setState(() {
       _counter--;
-      logger.i("Contador disminuye a $_counter");
+      //logger.i("Contador disminuye a $_counter");
     });
   }
 
   void _resetCounter() {
     setState(() {
       _counter = 0;
-      logger.i("Contador se reinicia a $_counter");
+      //logger.i("Contador se reinicia a $_counter");
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // ignore: avoid_print
+    print('build method');
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -128,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ElevatedButton(
                   onPressed: () {
                     // Navegar a la pantalla Detalle
-                    Navigator.pushNamed(context, '/detail');
+                    Navigator.pushReplacementNamed(context, '/detail');
                   },
                   child: const Text('Detalle'),
                 ),
@@ -139,6 +168,34 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: _showFloatingButton(),
     );
+  }
+
+  @override
+  void didUpdateWidget(covariant MyHomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // ignore: avoid_print
+    print('didUpdateWidget, mounted: $mounted');
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    // ignore: avoid_print
+    print('deactivate, mounted: $mounted');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // ignore: avoid_print
+    print('dispose, mounted: $mounted');
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    // ignore: avoid_print
+    print('reassemble, mounted: $mounted');
   }
 
   Widget? _showFloatingButton() {

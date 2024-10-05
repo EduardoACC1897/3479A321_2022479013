@@ -13,9 +13,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final Logger logger = Logger();
-    //logger.d("Logger is working!");
-
+    //Logger().d("Logger is working!");
+    
     return MaterialApp(
       title: 'Laboratorio 3',
       theme: ThemeData(
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'NerkoOne',
       ),
-      home: const MyHomePage(title: 'Laboratorio 3 - Página de inicio'),
+      home: const MyHomePage(title: 'Laboratorio 5 - Página de inicio'),
       routes: {
         '/detail': (context) => const DetailPage(),
         '/about': (context) => const AboutPage(),

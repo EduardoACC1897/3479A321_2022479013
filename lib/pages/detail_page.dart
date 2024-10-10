@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '/models/app_data.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({super.key});
@@ -21,6 +23,16 @@ class DetailPage extends StatelessWidget {
             const Text(
               'del laboratorio 6 del módulo',
               style: TextStyle(fontSize: 24),
+            ),
+            const SizedBox(height: 20),
+            // Mostrar el contador usando Consumer
+            Consumer<AppData>(
+              builder: (context, appData, child) {
+                return Text(
+                  'Contador actual: ${appData.counter}',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                );
+              },
             ),
             const SizedBox(height: 20),
             ElevatedButton(

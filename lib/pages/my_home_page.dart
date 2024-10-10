@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
+import '/models/app_data.dart';
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -17,7 +20,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   final Logger logger = Logger();
 
   // Iconos
@@ -51,49 +53,28 @@ class _MyHomePageState extends State<MyHomePage> {
     super.setState(fn);
   }
 
-  String _getMessage() {
-    if (_counter == 10) {
+  String _getMessage(int counter) {
+    if (counter == 10) {
       return "Victoria!";
-    } else if (_counter == 5) {
+    } else if (counter == 5) {
       return "Derrota!";
     } else {
       return "Continúa jugando";
     }
   }
 
-  String _getIconPath() {
-    if (_counter == 10) {
+  String _getIconPath(int counter) {
+    if (counter == 10) {
       return winIconPath;
-    } else if (_counter == 5) {
+    } else if (counter == 5) {
       return loseIconPath;
     } else {
       return continueIconPath;
     }
   }
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-      //logger.i("Contador incrementa a $_counter");
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-      //logger.i("Contador disminuye a $_counter");
-    });
-  }
-
-  void _resetCounter() {
-    setState(() {
-      _counter = 0;
-      //logger.i("Contador se reinicia a $_counter");
-    });
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -158,18 +139,18 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SvgPicture.asset(
-                  _getIconPath(),
+                  _getIconPath(context.watch<AppData>().counter),
                   width: 100,
                   height: 100,
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  _getMessage(),
+                  _getMessage(context.watch<AppData>().counter),
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  '$_counter',
+                  '${context.watch<AppData>().counter}',
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 20),
@@ -177,15 +158,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: _decrementCounter,
+                      onPressed: context.read<AppData>().decrementCounter,
                       child: const Icon(Icons.remove),
                     ),
                     ElevatedButton(
-                      onPressed: _incrementCounter,
+                      onPressed: context.read<AppData>().incrementCounter,
                       child: const Icon(Icons.add_circle),
                     ),
                     ElevatedButton(
-                      onPressed: _resetCounter,
+                      onPressed: context.read<AppData>().resetCounter,
                       child: const Icon(Icons.refresh),
                     ),
                   ],
@@ -202,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      floatingActionButton: _showFloatingButton(),
+      floatingActionButton: _showFloatingButton(context.watch<AppData>().counter),
     );
   }
 
@@ -234,11 +215,13 @@ class _MyHomePageState extends State<MyHomePage> {
     print('reassemble, mounted: $mounted');
   }
 
-  Widget? _showFloatingButton() {
-    // Mostrar el botón flotante si el contador es 5 o 10
-    if (_counter == 5 || _counter == 10) {
+  Widget? _showFloatingButton(int counter) {
+  // Mostrar el botón flotante si el contador es 5 o 10
+    if (counter == 5 || counter == 10) {
       return FloatingActionButton(
-        onPressed: _resetCounter,
+        onPressed: () {
+          context.read<AppData>().resetCounter();  // Usar la función resetCounter de AppData
+        },
         tooltip: 'Reiniciar',
         child: const Icon(Icons.refresh),
       );

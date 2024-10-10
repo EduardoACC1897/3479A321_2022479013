@@ -94,22 +94,59 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: avoid_print
-    print('build method');
-    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.info_outline),
-            onPressed: () {
-              // Navegar a la pantalla Acerca
-              Navigator.pushNamed(context, '/about');
-            },
-          ),
-        ],
+      ),
+      // Drawer
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.amber,
+              ),
+              child: Text(
+                'Menú de navegación',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Contador'),
+              onTap: () {
+                // Cierra el drawer y navegar a Home
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.details),
+              title: const Text('Detalle'),
+              onTap: () {
+                // Navegar a la pantalla Detalle
+                Navigator.pushNamed(context, '/detail');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('Sobre'),
+              onTap: () {
+                // Navegar a la pantalla Sobre
+                Navigator.pushNamed(context, '/about');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.history),
+              title: const Text('Auditoría'),
+              onTap: () {
+                // Navegar a la pantalla Auditoría
+                Navigator.pushNamed(context, '/audit');
+              },
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Card(
@@ -156,8 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    // Navegar a la pantalla Detalle
-                    Navigator.pushReplacementNamed(context, '/detail');
+                    Navigator.pushNamed(context, '/detail');
                   },
                   child: const Text('Detalle'),
                 ),

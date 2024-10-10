@@ -19,7 +19,7 @@ class AuditPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              'del laboratorio 5 del módulo',
+              'del laboratorio 6 del módulo',
               style: TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 20),

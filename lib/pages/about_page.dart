@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '/models/app_data.dart';
 
-class AboutPage extends StatelessWidget {
+class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
+
+  @override
+  State<AboutPage> createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage> {
+  @override
+  void initState() {
+    super.initState();
+    // ignore: avoid_print
+    print('initState, mounted: $mounted');
+    // Usar addPostFrameCallback para registrar la acción
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AppData>().addAction("Acceso a la pantalla de Sobre");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Acerca'),
+        title: const Text('Sobre'),
       ),
       body: Center(
         child: Column(
@@ -33,7 +51,6 @@ class AboutPage extends StatelessWidget {
               style: TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 20),
-            
             const Text(
               'Profesor: Manuel Moscoso',
               style: TextStyle(fontSize: 24),

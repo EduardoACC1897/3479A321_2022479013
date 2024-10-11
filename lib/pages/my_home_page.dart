@@ -37,6 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     // ignore: avoid_print
     print('initState, mounted: $mounted');
+    // Usar addPostFrameCallback para registrar la acción
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AppData>().addAction("Acceso a la pantalla principal");
+    });
   }
 
   @override
@@ -75,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {    
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,

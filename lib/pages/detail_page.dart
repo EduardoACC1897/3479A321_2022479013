@@ -2,8 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/models/app_data.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  @override
+  void initState() {
+    super.initState();
+    // ignore: avoid_print
+    print('initState, mounted: $mounted');
+    // Usar addPostFrameCallback para registrar la acción
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AppData>().addAction("Acceso a la pantalla de Detalle");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,37 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '/models/app_data.dart';
 
-class AuditPage extends StatelessWidget {
+class AuditPage extends StatefulWidget {
   const AuditPage({super.key});
+
+  @override
+  State<AuditPage> createState() => _AuditPageState();
+}
+
+class _AuditPageState extends State<AuditPage> {
+  @override
+  void initState() {
+    super.initState();
+    // ignore: avoid_print
+    print('initState, mounted: $mounted');
+    // Usar addPostFrameCallback para registrar la acción
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AppData>().addAction("Acceso a la pantalla de Auditoría");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalle'),
+        title: const Text('Auditoría'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Esta es la pantalla de Auditoría',
-              style: TextStyle(fontSize: 24),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'del laboratorio 6 del módulo',
-              style: TextStyle(fontSize: 24),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Volver a la pantalla anterior
-                Navigator.pop(context);
-              },
-              child: const Text('Volver'),
-            ),
-          ],
-        ),
+      body: Consumer<AppData>(
+        builder: (context, appData, child) {
+          return ListView.builder(
+            itemCount: appData.actions.length, // Cantidad de acciones
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(appData.actions[index]), // Mostrar cada acción
+              );
+            },
+          );
+        },
       ),
     );
   }

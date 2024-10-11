@@ -56,7 +56,7 @@ class _DetailPageState extends State<DetailPage> {
                 // Navegar a la pantalla Acerca
                 Navigator.pushNamed(context, '/about');
               },
-              child: const Text('Acerca'),
+              child: const Text('Sobre'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(

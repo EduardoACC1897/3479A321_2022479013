@@ -53,7 +53,7 @@ class _DetailPageState extends State<DetailPage> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Navegar a la pantalla Acerca
+                // Navegar a la pantalla Sobre
                 Navigator.pushNamed(context, '/about');
               },
               child: const Text('Sobre'),

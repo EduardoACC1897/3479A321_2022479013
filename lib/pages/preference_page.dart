@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '/utils/database_helper.dart';
+import '/models/audit.dart';
 
 class PreferencePage extends StatefulWidget {
   const PreferencePage({super.key});
@@ -53,6 +55,14 @@ class _PreferencePageState extends State<PreferencePage> {
   void initState() {
     super.initState();
     _loadPreferences();  // Carga las preferencias cuando se inicia la pantalla
+    // Registrar la acción "Acceso a la pantalla de Preferencias" en la base de datos
+    _logAccessToPreferencePage();
+  }
+
+  // Método para registrar la acción en la base de datos
+  Future<void> _logAccessToPreferencePage() async {
+    final dbHelper = DatabaseHelper();
+    await dbHelper.insertAudit(Audit(action: "Acceso a la pantalla de Preferencias"));
   }
 
   @override

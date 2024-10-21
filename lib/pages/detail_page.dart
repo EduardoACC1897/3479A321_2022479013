@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '/models/app_data.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import '/utils/database_helper.dart';
+import '/models/audit.dart';
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
 
@@ -10,14 +10,31 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  
+  int _counter = 0; // Variable para almacenar el valor del contador
+
   @override
   void initState() {
     super.initState();
     // ignore: avoid_print
     print('initState, mounted: $mounted');
-    // Usar addPostFrameCallback para registrar la acción
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AppData>().addAction("Acceso a la pantalla de Detalle");
+    // Cargar el valor del contador desde SharedPreferences
+    _loadCounter();
+    // Registrar la acción "Acceso a la pantalla de Detalle" en la base de datos
+    _logAccessToDetailPage();
+  }
+
+  // Método para registrar la acción en la base de datos
+  Future<void> _logAccessToDetailPage() async {
+    final dbHelper = DatabaseHelper();
+    await dbHelper.insertAudit(Audit(action: "Acceso a la pantalla de Detalle"));
+  }
+
+  // Método para cargar el contador desde SharedPreferences
+  Future<void> _loadCounter() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _counter = prefs.getInt('counter') ?? 0; // Si no existe, el valor es 0
     });
   }
 
@@ -41,14 +58,11 @@ class _DetailPageState extends State<DetailPage> {
               style: TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 20),
-            // Mostrar el contador usando Consumer
-            Consumer<AppData>(
-              builder: (context, appData, child) {
-                return Text(
-                  'Contador actual: ${appData.counter}',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                );
-              },
+            const SizedBox(height: 20),
+            // Mostrar el valor del contador cargado desde SharedPreferences
+            Text(
+              'Contador actual: $_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 20),
             ElevatedButton(

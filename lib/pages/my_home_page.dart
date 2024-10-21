@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '/models/app_data.dart';
+import '/utils/database_helper.dart';
+import '/models/audit.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -57,10 +57,14 @@ class _MyHomePageState extends State<MyHomePage> {
     // ignore: avoid_print
     print('initState, mounted: $mounted');
     _loadPreferences(); // Cargar las preferencias al iniciar la pantalla
-    // Usar addPostFrameCallback para registrar la acción
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AppData>().addAction("Acceso a la pantalla principal");
-    });
+    // Registrar la acción "Acceso a la pantalla Principal" en la base de datos
+    _logAccessToMainPage();
+  }
+
+  // Método para registrar la acción en la base de datos
+  Future<void> _logAccessToMainPage() async {
+    final dbHelper = DatabaseHelper();
+    await dbHelper.insertAudit(Audit(action: "Acceso a la pantalla Principal"));
   }
 
   @override

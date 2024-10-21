@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '/models/app_data.dart';
+import '/utils/database_helper.dart';
+import '/models/audit.dart';
 
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
@@ -15,10 +15,14 @@ class _AboutPageState extends State<AboutPage> {
     super.initState();
     // ignore: avoid_print
     print('initState, mounted: $mounted');
-    // Usar addPostFrameCallback para registrar la acción
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AppData>().addAction("Acceso a la pantalla de Sobre");
-    });
+    // Registrar la acción "Acceso a la pantalla de Sobre" en la base de datos
+    _logAccessToAboutPage();
+  }
+
+  // Método para registrar la acción en la base de datos
+  Future<void> _logAccessToAboutPage() async {
+    final dbHelper = DatabaseHelper();
+    await dbHelper.insertAudit(Audit(action: "Acceso a la pantalla de Sobre"));
   }
 
   @override

@@ -7,9 +7,18 @@ import 'pages/detail_page.dart';
 import 'pages/about_page.dart';
 import 'pages/audit_page.dart';
 import 'pages/preference_page.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'dart:io';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Si la plataforma es Windows, Linux o macOS, inicializa sqflite_ffi
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
+
   runApp(const MyApp());
 }
 

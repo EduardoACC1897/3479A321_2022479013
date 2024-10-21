@@ -6,6 +6,7 @@ import 'pages/my_home_page.dart';
 import 'pages/detail_page.dart';
 import 'pages/about_page.dart';
 import 'pages/audit_page.dart';
+import 'pages/preference_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           '/detail': (context) => const DetailPage(),
           '/about': (context) => const AboutPage(),
           '/audit': (context) => const AuditPage(),
+          '/preference': (context) => const PreferencePage(),
         },
       ),
     );

@@ -131,6 +131,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushNamed(context, '/audit');
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Preferencias'),
+              onTap: () {
+                // Navegar a la pantalla Preferencias
+                Navigator.pushNamed(context, '/preference');
+              },
+            ),
           ],
         ),
       ),

@@ -9,6 +9,7 @@ import 'pages/audit_page.dart';
 import 'pages/preference_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -21,13 +22,13 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<AppData>(
       create: (context) => AppData(),
       child: MaterialApp(
-        title: 'Laboratorio 6',
+        title: 'Laboratorio 7',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
           useMaterial3: true,
           fontFamily: 'NerkoOne',
         ),
-        home: const MyHomePage(title: 'Laboratorio 6 - Página de inicio'),
+        home: const MyHomePage(title: 'Laboratorio 7 - Página de inicio'),
         routes: {
           '/detail': (context) => const DetailPage(),
           '/about': (context) => const AboutPage(),

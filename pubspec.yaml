@@ -1,4 +1,4 @@
-name: laboratorio_3
+name: laboratorio_7
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -39,6 +39,8 @@ dependencies:
   logger: ^2.4.0
   provider: ^6.1.2
   shared_preferences: ^2.3.2
+  sqflite: ^2.4.0
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '/models/app_data.dart';
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -27,6 +27,25 @@ class _MyHomePageState extends State<MyHomePage> {
   final String loseIconPath = 'assets/icons/lose_icon.svg';
   final String continueIconPath = 'assets/icons/continue_icon.svg';
   
+  // Campos para las preferencias
+  String _userName = ''; // Nombre de usuario
+  int _counter = 0;      // Contador
+
+  // Método para cargar las preferencias
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('userName') ?? 'Usuario'; // Carga el nombre de usuario desde las preferencias
+      _counter = prefs.getInt('counter') ?? 0; // Carga el contador desde las preferencias
+    });
+  }
+
+  // Método para guardar el contador
+  Future<void> _saveCounter(int counter) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('counter', counter);
+  }
+
   _MyHomePageState() {
     // ignore: avoid_print
     print('constructor, mounted: $mounted');
@@ -37,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     // ignore: avoid_print
     print('initState, mounted: $mounted');
+    _loadPreferences(); // Cargar las preferencias al iniciar la pantalla
     // Usar addPostFrameCallback para registrar la acción
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AppData>().addAction("Acceso a la pantalla principal");
@@ -78,14 +98,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {    
-    
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      // Drawer
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -135,8 +153,8 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.settings),
               title: const Text('Preferencias'),
               onTap: () {
-                // Navegar a la pantalla Preferencias
-                Navigator.pushNamed(context, '/preference');
+                Navigator.pushNamed(context, '/preference')
+                    .then((_) => _loadPreferences()); // Llamada a _loadPreferences al volver
               },
             ),
           ],
@@ -151,19 +169,24 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Text(
+                  'Hola $_userName', // Mensaje de bienvenida
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                const SizedBox(height: 20),
                 SvgPicture.asset(
-                  _getIconPath(context.watch<AppData>().counter),
+                  _getIconPath(_counter),
                   width: 100,
                   height: 100,
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  _getMessage(context.watch<AppData>().counter),
+                  _getMessage(_counter),
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  '${context.watch<AppData>().counter}',
+                  '$_counter',
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 20),
@@ -171,32 +194,40 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: context.read<AppData>().decrementCounter,
+                      onPressed: () {
+                        setState(() {
+                          _counter--;
+                          _saveCounter(_counter); // Guardar el contador actualizado
+                        });
+                      },
                       child: const Icon(Icons.remove),
                     ),
                     ElevatedButton(
-                      onPressed: context.read<AppData>().incrementCounter,
+                      onPressed: () {
+                        setState(() {
+                          _counter++;
+                          _saveCounter(_counter); // Guardar el contador actualizado
+                        });
+                      },
                       child: const Icon(Icons.add_circle),
                     ),
                     ElevatedButton(
-                      onPressed: context.read<AppData>().resetCounter,
+                      onPressed: () {
+                        setState(() {
+                          _counter = 0;
+                          _saveCounter(_counter); // Guardar el contador al reiniciar
+                        });
+                      },
                       child: const Icon(Icons.refresh),
                     ),
                   ],
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/detail');
-                  },
-                  child: const Text('Detalle'),
                 ),
               ],
             ),
           ),
         ),
       ),
-      floatingActionButton: _showFloatingButton(context.watch<AppData>().counter),
+      floatingActionButton: _showFloatingButton(_counter),
     );
   }
 
@@ -229,17 +260,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget? _showFloatingButton(int counter) {
-  // Mostrar el botón flotante si el contador es 5 o 10
     if (counter == 5 || counter == 10) {
       return FloatingActionButton(
         onPressed: () {
-          context.read<AppData>().resetCounter();  // Usar la función resetCounter de AppData
+          setState(() {
+            _counter = 0;
+            _saveCounter(_counter); // Guardar el reinicio
+          });
         },
         tooltip: 'Reiniciar',
         child: const Icon(Icons.refresh),
       );
     } else {
-      // Ocultar el botón flotante si el contador no es 5 o 10
       return null;
     }
   }
